@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/appointmnts")
+@RequestMapping("/appointments")
 public class AppointmentController {
     private final AppointmentSerivce appointmentSerivce;
 
@@ -26,6 +26,13 @@ public class AppointmentController {
     @ResponseBody
     public ResponseEntity<List<AppointmentDTO>> getTodayAppointments(){
         return ResponseEntity.ok(appointmentSerivce.getTodayAppointmets());
+    }
+
+    @DeleteMapping("/{appointmentId}/deleteAppointment")
+    ResponseEntity<Object> deleteAppointment(@PathVariable("appointmentId")UUID appointmentId,String reason){
+        appointmentSerivce.deleteAppointment(appointmentId,reason);
+        String message = "appointment deleted successfully";
+        return ResponseEntity.ok(message);
     }
 
 }
