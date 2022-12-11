@@ -19,8 +19,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AppointmentSerivce {
+
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+
     public AppointmentDTO saveAppointment(UUID patientId, AppointmentDTO appointmentDTO) {
         Appointment appointment = appointmentMapper.mapToAppointment(appointmentDTO);
         appointment.getPatient().setId(patientId);
