@@ -1,0 +1,15 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: appointment-system
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: ${JDBC_PASSWORD:mac-1234}
+    url: ${JDBC_URL:jdbc:postgresql://localahost:5432/appointmnet}
+    username: ${JDBC_USERNAME:postgres}
+
+  liquibase:
+    change-log: classpath:db-changelog/main-changelog.xml
