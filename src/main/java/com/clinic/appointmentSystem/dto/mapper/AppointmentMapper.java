@@ -5,10 +5,14 @@ import com.clinic.appointmentSystem.entites.Appointment;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper(componentModel = "Spring")
 @Component
 public interface AppointmentMapper {
     Appointment mapToAppointment(AppointmentDTO appointmentDTO);
 
     AppointmentDTO mapToAppointmentDTO(Appointment appointment);
+
+    List<AppointmentDTO> mapToAppointmentDTOList(List<Appointment> appointments);
 }
