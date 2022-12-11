@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,9 +23,9 @@ public class Patient {
     private String patientName;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private LocalDate birthDate;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "appointments_id")
+    @JoinColumn(name = "patient_id")
     private Set<Appointment> appointments;
 }
