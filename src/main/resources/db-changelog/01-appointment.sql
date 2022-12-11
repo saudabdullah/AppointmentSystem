@@ -3,5 +3,8 @@ CREATE TABLE appointment (
  doctor_name VARCHAR(255),
  appointment_date DATE,
  stauts VARCHAR(255),
- CONSTRAINT pk_patient PRIMARY KEY (id)
+ patient_id VARCHAR(255) ,
+ CONSTRAINT pk_appointment PRIMARY KEY (id)
 );
+
+ALTER TABLE appointment ADD CONSTRAINT FK_PATIENT_APPOINTMENTS FOREIGN KEY (patient_id) REFERENCES patient (id);

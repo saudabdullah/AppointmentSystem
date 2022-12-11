@@ -3,14 +3,14 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-    <changeSet id="1648509618693-1" author="Admin">
-        <sqlFile path="db-changelog/changes/create.sql" />
-    </changeSet>
-    <changeSet id="1148509618662-1" author="Admin">
-        <sqlFile
-                path="db-changelog/01-appointment.sql" />
-    </changeSet>
+
     <changeSet id="1648509618694-1" author="Admin">
         <sqlFile path="db-changelog/02-patient.sql" />
     </changeSet>
+
+    <changeSet id="1148509618662-3" author="Admin">
+        <sqlFile
+                path="db-changelog/01-appointment.sql" />
+    </changeSet>
+
 </databaseChangeLog>

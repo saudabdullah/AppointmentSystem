@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper(componentModel = "Spring")
+@Mapper(componentModel = "spring")
 @Component
 public interface AppointmentMapper {
     Appointment mapToAppointment(AppointmentDTO appointmentDTO);
