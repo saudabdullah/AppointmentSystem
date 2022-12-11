@@ -4,7 +4,9 @@ import com.clinic.appointmentSystem.dto.AppointmentDTO;
 import com.clinic.appointmentSystem.dto.SimpleAppointmentDTO;
 import com.clinic.appointmentSystem.dto.mapper.AppointmentMapper;
 import com.clinic.appointmentSystem.entites.Appointment;
+import com.clinic.appointmentSystem.entites.Patient;
 import com.clinic.appointmentSystem.repositories.AppointmentRepository;
+import com.clinic.appointmentSystem.repositories.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,7 @@ public class AppointmentSerivce {
 
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+    private final PatientRepository patientRepository;
 
     public AppointmentDTO saveAppointment(UUID patientId, AppointmentDTO appointmentDTO) {
         Appointment appointment = appointmentMapper.mapToAppointment(appointmentDTO);
@@ -84,5 +87,23 @@ public class AppointmentSerivce {
         if (index >= 0)
             fields.set(index, "propertyStatus");
         return fields;
+    }
+
+    public SimpleAppointmentDTO searchAppointments(String patientName, String sortBy,
+                                                   int page, String direction, int size) {
+        Patient patient = patientRepository.getBypatientName(patientName);
+
+        SimpleAppointmentDTO simpleAppointmentDTO = new SimpleAppointmentDTO();
+        List<String> sortByList = fixSortBy(sortBy);
+        List<Sort.Order> sortByOrders = sortByList.stream().map(oe -> new Sort.Order(Sort.Direction.fromString(direction), oe))
+                .collect(Collectors.toList());
+        Page<Appointment> appointments = appointmentRepository.findByPatientID(patient.getId(),
+                PageRequest.of(page,size,Sort.by(sortByOrders)));
+        simpleAppointmentDTO.setValues(appointmentMapper.mapToAppointmentDTOList(appointments.getContent()));
+        simpleAppointmentDTO.setPageCount(appointments.getTotalPages());
+        simpleAppointmentDTO.setCount(appointments.getTotalElements());
+        simpleAppointmentDTO.setPage(page);
+        simpleAppointmentDTO.setSize(size);
+        return simpleAppointmentDTO;
     }
 }

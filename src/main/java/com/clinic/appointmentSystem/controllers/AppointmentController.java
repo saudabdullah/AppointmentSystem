@@ -46,7 +46,7 @@ public class AppointmentController {
 
     @GetMapping("/getFilteredAppointments/{patientId}")
     @ResponseBody
-    public ResponseEntity<SimpleAppointmentDTO> getFilteredProperties(
+    public ResponseEntity<SimpleAppointmentDTO> getFilteredAppointments(
             @RequestParam(name = "date", required = false) LocalDate appointmentDate,
             @RequestParam(name = "sortBy", required = false, defaultValue = "appointmentDate") String sortBy,
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
@@ -55,6 +55,18 @@ public class AppointmentController {
             @PathVariable(name = "patientId") UUID patientID) {
 
         return ResponseEntity.ok(appointmentSerivce.filterAppointments(patientID, appointmentDate, sortBy, page, size, direction));
-
     }
+
+    @GetMapping("/searchAppointment")
+    @ResponseBody
+    public ResponseEntity<SimpleAppointmentDTO> searchUsingPropertyCode(
+            @RequestParam(name = "patientName") String patientName,
+            @RequestParam(name = "sortBy", required = false, defaultValue = "appointmentDate") String sortBy,
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "size", required = false, defaultValue = "10") int size,
+            @RequestParam(name = "direction", required = false, defaultValue = "ASC") String direction)
+             {
+
+       return ResponseEntity.ok(appointmentSerivce.searchAppointments(patientName,sortBy,page,direction,size));
+}
 }
